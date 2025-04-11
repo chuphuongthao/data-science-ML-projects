@@ -122,6 +122,7 @@ if st.sidebar.button("Update"):
 
 
 # sidebar for selected tickers
+'''
 st.sidebar.header("Real-time stock prices")
 stock_symbols = ["AAPL", "GOOGL", "MSFT", "AMZN", "TSLA"]
 for symbol in stock_symbols:
@@ -132,6 +133,8 @@ for symbol in stock_symbols:
         change = last_price - real_time_data['Open'].iloc[0]
         pct_change = (change / real_time_data['Open'].iloc[0]) * 100
         st.sidebar.metric(label=f"{symbol}", value=f"${last_price:.2f} USD", delta=f"${change:.2f} ({pct_change:.2f}%)")
+'''
+
 
 # sidebar information
 st.sidebar.subheader("About")
