@@ -104,7 +104,7 @@ for indicator in indicators:
     if indicator in data.columns:
         fig.add_trace(go.Scatter(x=data['Datetime'], y=data[indicator], mode='lines', name=indicator))
 
-fig.update_layout(title=f"{ticker} {time_period.upper()} Chart", 
+        fig.update_layout(title=f"{ticker} {time_period.upper()} Chart", 
                   xaxis_title="Date", 
                   yaxis_title="Price (USD)", 
                   height=600,
