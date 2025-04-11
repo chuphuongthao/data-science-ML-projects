@@ -42,9 +42,9 @@ def calculate_metrics(data):
 def add_technical_indicators(data):
     # add technical indicators using the ta library
     # simple moving average
-    data['SMA_20'] = ta.trend.sma_indicator(data['Close'], window=20)
+    data['SMA_20'] = ta.trend.sma_indicator(data['Close'].values, window=20)
     # exponential moving average
-    data['EMA_20'] = ta.trend.ema_indicator(data['Close'], window=20)
+    data['EMA_20'] = ta.trend.ema_indicator(data['Close'].values, window=20)
     return data
 
 # Dashboard layout
