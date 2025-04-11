@@ -45,8 +45,6 @@ def add_technical_indicators(data):
     data['SMA_20'] = ta.trend.sma_indicator(data['Close'], window=20)
     # exponential moving average
     data['EMA_20'] = ta.trend.ema_indicator(data['Close'], window=20)
-    # relative strength index
-    data['RSI'] = ta.momentum.rsi(data['Close'], window=14)
     return data
 
 # Dashboard layout
@@ -58,7 +56,7 @@ st.sidebar.title("Set chart parameters")
 ticker = st.sidebar.text_input("Enter ticker", "AAPL")
 time_period = st.sidebar.selectbox("Select time period", ["1d", "1wk", "1mo", "1y"])
 chart_type = st.sidebar.selectbox("Select chart type", ["Line", "Candlestick"])
-indicators = st.sidebar.multiselect("Select indicators", ["SMA_20", "SMA_50", "EMA_20", "EMA_50", "RSI"])
+indicators = st.sidebar.multiselect("Select indicators", ["SMA_20", "EMA_20"])
 
 ## interval mapping
 interval_mapping = {
