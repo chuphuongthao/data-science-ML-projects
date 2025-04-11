@@ -122,19 +122,6 @@ if st.sidebar.button("Update"):
 
 
 # sidebar for selected tickers
-'''
-st.sidebar.header("Real-time stock prices")
-stock_symbols = ["AAPL", "GOOGL", "MSFT", "AMZN", "TSLA"]
-for symbol in stock_symbols:
-    real_time_data = yf.download(symbol, period='1d', interval='1m')
-    if not real_time_data.empty:
-        real_time_data = process_data(real_time_data)
-        last_price = real_time_data['Close'].iloc[-1]
-        change = last_price - real_time_data['Open'].iloc[0]
-        pct_change = (change / real_time_data['Open'].iloc[0]) * 100
-        st.sidebar.metric(label=f"{symbol}", value=f"${last_price:.2f} USD", delta=f"${change:.2f} ({pct_change:.2f}%)")
-'''
-
 
 # sidebar information
 st.sidebar.subheader("About")
