@@ -43,10 +43,8 @@ def add_technical_indicators(data):
     # add technical indicators using the ta library
     # simple moving average
     data['SMA_20'] = ta.trend.sma_indicator(data['Close'], window=20)
-    data['SMA_50'] = ta.trend.sma_indicator(data['Close'], window=50)
     # exponential moving average
     data['EMA_20'] = ta.trend.ema_indicator(data['Close'], window=20)
-    data['EMA_50'] = ta.trend.ema_indicator(data['Close'], window=50)
     # relative strength index
     data['RSI'] = ta.momentum.rsi(data['Close'], window=14)
     return data
@@ -100,23 +98,27 @@ if st.sidebar.button("Update"):
 
 
 # add technical indicators to the plot
-for indicator in indicators:
-    if indicator in data.columns:
-        fig.add_trace(go.Scatter(x=data['Datetime'], y=data[indicator], mode='lines', name=indicator))
+    for indicator in indicators:
+        if indicator == 'SMA_20':
+            fig.add_trace(go.Scatter(x=data['Datetime'], y=data['SMA_20'], name='SMA 20'))
+        elif indicator == 'EMA_20':
+            fig.add_trace(go.Scatter(x=data['Datetime'], y=data['EMA_20'], name='EMA 20'))
+        elif indicator == 'RSI':
+            fig.add_trace(go.Scatter(x=data['Datetime'], y=data['RSI'], name='RSI', yaxis='y2'))
 
-        fig.update_layout(title=f"{ticker} {time_period.upper()} Chart", 
-                  xaxis_title="Date", 
-                  yaxis_title="Price (USD)", 
-                  height=600,
-                  xaxis_rangeslider_visible=False)
+    fig.update_layout(title=f"{ticker} {time_period.upper()} Chart", 
+                    xaxis_title="Date", 
+                    yaxis_title="Price (USD)", 
+                    height=600,
+                    xaxis_rangeslider_visible=False)
 
-st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True)
 
-st.subheader('Historical Data')
-st.dataframe(data[['Datetime', 'Open', 'High', 'Low', 'Close', 'Volume']].tail(10), use_container_width=True)
+    st.subheader('Historical Data')
+    st.dataframe(data[['Datetime', 'Open', 'High', 'Low', 'Close', 'Volume']].tail(10), use_container_width=True)
 
-st.subheader('Technical Indicators')
-st.dataframe(data[['Datetime'] + indicators].tail(10), use_container_width=True)
+    st.subheader('Technical Indicators')
+    st.dataframe(data[['Datetime'] + indicators].tail(10), use_container_width=True)
 
 
 # sidebar for selected tickers
