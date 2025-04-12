@@ -51,7 +51,7 @@ def add_technical_indicators(data):
 
 st.set_page_config(page_title="My Real-Time Stock Dashboard", layout="wide")
 
-## Sidebar
+############## Sidebar
 st.sidebar.title("Set chart parameters")
 ticker = st.sidebar.text_input("Enter ticker", "AAPL")
 time_period = st.sidebar.selectbox("Select time period", ["1d", "1wk", "1mo", "1y"])
@@ -67,11 +67,15 @@ interval_mapping = {
     'max': '1wk'
 }
 
-## main content
+############### Main content
 if st.sidebar.button("Update"):
     data = get_stock_data(ticker, time_period, interval_mapping[time_period])
     data = process_data(data)
     data = add_technical_indicators(data)
+
+    # check for multi-index columns: for Datetime in plotting
+    if isinstance(data.columns, pd.MultiIndex):
+        data.columns = ['_'.join(col).strip() for col in data.columns]
 
     last_close, change, pct_change, high, low, volume = calculate_metrics(data)
 
