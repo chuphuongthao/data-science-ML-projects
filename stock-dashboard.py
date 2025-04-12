@@ -30,8 +30,8 @@ def process_data(data):
 
 def calculate_metrics(data):
     # calculate basic metrics
-    last_close = data['Close'].iloc[-1]
-    prev_close = data['Close'].iloc[0]
+    last_close = data['Close'].iloc[-1].item()
+    prev_close = data['Close'].iloc[0].item()
     change = last_close - prev_close
     pct_change = (change / prev_close) * 100
     high = data['High'].max()
