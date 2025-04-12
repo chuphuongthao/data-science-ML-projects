@@ -34,9 +34,9 @@ def calculate_metrics(data):
     prev_close = data['Close'].iloc[0].item()
     change = last_close - prev_close
     pct_change = (change / prev_close) * 100
-    high = data['High'].max()
-    low = data['Low'].min()
-    volume = data['Volume'].sum()
+    high = data['High'].max().item()
+    low = data['Low'].min().item()
+    volume = data['Volume'].sum().item()
     return last_close, change, pct_change, high, low, volume
 
 def add_technical_indicators(data):
