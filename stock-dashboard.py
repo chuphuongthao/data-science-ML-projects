@@ -74,8 +74,7 @@ if st.sidebar.button("Update"):
     data = add_technical_indicators(data)
 
     # check for multi-index columns: for Datetime in plotting
-    if isinstance(data.columns, pd.MultiIndex):
-        data.columns = ['_'.join(col).strip() for col in data.columns]
+    
 
     last_close, change, pct_change, high, low, volume = calculate_metrics(data)
 
