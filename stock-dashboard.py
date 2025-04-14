@@ -74,8 +74,19 @@ if st.sidebar.button("Update"):
     data = add_technical_indicators(data)
 
     # check for multi-index columns: for Datetime in plotting
-    
+    # Fixing the Value error from multi-index of [('Datetime', ''), ('Close', 'MSFT'), ...]
+    # Flatten any MultiIndex columns
+    data.columns = ['_'.join(filter(None, map(str, col))) if isinstance(col, tuple) else col for col in data.columns]
 
+    # Rename columns to match expected plotting names
+    data = data.rename(columns={
+        f'Open_{ticker}': 'Open',
+        f'High_{ticker}': 'High',
+        f'Low_{ticker}': 'Low',
+        f'Close_{ticker}': 'Close',
+        f'Volume_{ticker}': 'Volume'})
+
+    # calculate metrics
     last_close, change, pct_change, high, low, volume = calculate_metrics(data)
 
     # display metrics
